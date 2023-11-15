@@ -1,1 +1,66 @@
-# unemployement_analysis
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+# Load your dataset
+data = pd.read_csv("C:/Users/vinay/Downloads/Unemployment in India.csv")
+# Display the first 10 rows of the dataset
+data.head(10)
+# Basic dataset information
+data.info()
+# Check for missing values
+data.isnull().sum
+# Descriptive statistics of the dataset
+data.describe()
+# Set plotting style
+numeric_data = data.select_dtypes(include='number')
+plt.style.use("ggplot")
+plt.figure(figsize=(10, 10))
+sns.heatmap(numeric_data.corr(), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
+# Histogram of Estimated Employment Rate by Area
+plt.style.use("dark_background")
+data.columns = ["Region", "Date", "Frequency", "Estimated Unemployment Rate (%)", "Estimated Employed", "Estimated Labour Participation Rate (%)", "Area"]
+plt.figure(figsize=(10, 6))
+sns.histplot(x="Estimated Employed", hue="Area", data=data, kde=True, palette="Set2")
+plt.title("Histogram of Estimated Employment Rate by Area")
+plt.xlabel("Estimated Employment Rate")
+plt.ylabel("Count")
+plt.show()
+# Histogram of Estimated Unemployment Rate by Area
+plt.style.use("dark_background")
+data.columns = ["Region", "Date", "Frequency", "Estimated Unemployement Rate (%)", "Estimated Employed", "Estimated Labour Participation Rate (%)", "Area"]
+plt.figure(figsize=(10, 6))
+sns.histplot(x="Estimated Unemployement Rate (%)", hue="Area", data=data, kde=True, palette="Set2")
+plt.title("Histogram of Estimated Unemployment Rate by Area")
+plt.xlabel("Estimated Unemployment Rate")
+plt.ylabel("Count")
+plt.show()
+# BoxPlot of Estimated UnEmployement Rate by Region
+import seaborn as sns
+data = data[['Region', 'Estimated Unemployement Rate (%)']]
+sns.boxplot(x='Region', y='Estimated Unemployement Rate (%)', data=data)
+plt.xlabel('Region')
+plt.ylabel('Estimated Unemployment Rate')
+plt.title('Box Plot of Estimated Unemployment Rate by Region')
+plt.xticks(rotation=45)
+plt.show()
+# Mean Estimated UnEmployement Rate by Region
+import pandas as pd
+import matplotlib.pyplot as plt
+data = data[['Region', 'Estimated Unemployement Rate (%)']]
+data_grouped = data.groupby('Region')['Estimated Unemployement Rate (%)'].mean()
+data_grouped.plot(kind='bar')
+plt.xlabel('Region')
+plt.ylabel('Mean Estimated Unemployment Rate')
+plt.title('Mean Estimated Unemployment Rate by Region')
+plt.show()
+# Distribution of Estimated UnEmployement Rate by Region
+data = data[['Region', 'Estimated Unemployement Rate (%)']]
+data_grouped = data.groupby('Region')['Estimated Unemployement Rate (%)'].sum()
+data_grouped.plot(kind='pie', autopct='%1.1f%%')
+plt.title('Distribution of Estimated Unemployment Rate by Region')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.show()
