@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
+import plotly.express as px 
 # Load your dataset
 data = pd.read_csv("C:/Users/vinay/Downloads/Unemployment in India.csv")
 # Display the first 10 rows of the dataset
